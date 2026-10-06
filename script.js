@@ -131,6 +131,14 @@ function attachCommentFormListener(categoryName) {
     saveComments();
     textarea.value = '';
     renderCategory(categoryName);
+    
+    // Scroll to the comments list to see the newly added suggestion
+    setTimeout(() => {
+      const commentsList = document.querySelector('.comments-list');
+      if (commentsList) {
+        commentsList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }, 0);
   });
 }
 
