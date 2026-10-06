@@ -1,4 +1,16 @@
 const categories = {
+  stories: {
+    label: 'Stories',
+    items: []
+  },
+  artwork: {
+    label: 'Artwork',
+    items: []
+  },
+  animation: {
+    label: 'Animation',
+    items: []
+  },
   games: {
     label: 'Games',
     items: [
