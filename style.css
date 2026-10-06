@@ -1,0 +1,234 @@
+:root {
+  --bg: #fff9ef;
+  --panel: rgba(255, 255, 255, 0.7);
+  --panel-strong: #fff;
+  --text: #1e1b1a;
+  --muted: #5d544e;
+  --line: rgba(30, 27, 26, 0.08);
+  --yellow: #f7d24e;
+  --banana: #f1b64d;
+  --banana-deep: #e9982d;
+  --peach: #ffd8b0;
+  --shadow: 0 20px 45px rgba(88, 52, 18, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(247, 210, 78, 0.35), transparent 25%),
+    radial-gradient(circle at top right, rgba(241, 182, 77, 0.4), transparent 22%),
+    linear-gradient(135deg, #fffaf2 0%, #fff6df 100%);
+  color: var(--text);
+}
+
+button {
+  font: inherit;
+}
+
+.page-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--yellow), var(--banana-deep));
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+}
+
+.hero {
+  padding-top: 48px;
+}
+
+.intro {
+  max-width: 700px;
+}
+
+.label {
+  margin: 0 0 12px;
+  font-weight: 600;
+  color: var(--banana-deep);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+.intro h2 {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+}
+
+.description {
+  max-width: 640px;
+  margin-top: 18px;
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.category-nav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap: 14px;
+  margin-top: 38px;
+}
+
+.category-btn {
+  border: 1px solid rgba(30, 27, 26, 0.08);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--text);
+  padding: 18px 20px;
+  border-radius: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.category-btn:hover,
+.category-btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(85, 58, 24, 0.08);
+  border-color: rgba(30, 27, 26, 0.15);
+}
+
+.category-btn.active {
+  background: linear-gradient(135deg, var(--yellow), var(--banana));
+  border-color: transparent;
+  box-shadow: 0 18px 30px rgba(233, 152, 45, 0.2);
+}
+
+.showcase {
+  margin-top: 34px;
+  padding: 28px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  min-height: 320px;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  position: relative;
+  min-height: 170px;
+  border-radius: 22px;
+  border: 1px solid rgba(30, 27, 26, 0.08);
+  background: rgba(255, 255, 255, 0.84);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.08));
+}
+
+.project-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.project-card.empty {
+  background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255, 246, 221, 0.85));
+}
+
+.project-card.filled {
+  background: linear-gradient(135deg, rgba(247, 210, 78, 0.82), rgba(241, 182, 77, 0.96));
+  border-color: rgba(233, 152, 45, 0.4);
+}
+
+.project-card button {
+  appearance: none;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
+}
+
+.project-card.empty button {
+  background: rgba(255, 255, 255, 0.6);
+  color: rgba(30, 27, 26, 0.72);
+  cursor: not-allowed;
+}
+
+.project-card.filled button {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.project-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+
+.project-card p {
+  margin: 0;
+  color: rgba(30, 27, 26, 0.7);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 700px) {
+  .category-nav {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+  }
+
+  .showcase {
+    padding: 18px;
+  }
+}

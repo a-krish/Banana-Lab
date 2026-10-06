@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banana Studios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">B</div>
+          <div>
+            <p class="eyebrow">creative studio</p>
+            <h1>Banana Studios</h1>
+          </div>
+        </div>
+      </header>
+
+      <main class="hero">
+        <section class="intro">
+          <p class="label">Custom stories • artwork • animation • games</p>
+          <h2>Original worlds, built to be seen.</h2>
+          <p class="description">
+            We create custom stories, artwork, animations, and browser-based experiences designed
+            to stand out and spark imagination.
+          </p>
+        </section>
+
+        <nav class="category-nav" aria-label="Studio categories">
+          <button class="category-btn active" data-category="stories">Stories</button>
+          <button class="category-btn" data-category="artwork">Artwork</button>
+          <button class="category-btn" data-category="animation">Animation</button>
+          <button class="category-btn" data-category="games">Games</button>
+        </nav>
+
+        <section id="showcase" class="showcase" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
