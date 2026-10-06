@@ -3,7 +3,8 @@ const categories = {
     label: 'Games',
     items: [
       {
-        name: 'Hard Platforming',
+        name: 'Space City Adventure
+          ',
         blurb: 'A playful browser prototype built for quick arcade energy and bright feedback.',
         filled: true,
         action: 'Play demo',
