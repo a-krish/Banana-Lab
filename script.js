@@ -25,34 +25,27 @@ const categories = {
   }
 };
 
-// Comments storage
 const comments = {
+  stories: [],
   artwork: [],
-  animation: []
+  animation: [],
+  games: []
 };
 
-// Load comments from localStorage
 function loadComments() {
-  const saved = localStorage.getItem('bananaLabComments');
-  if (saved) {
-    Object.assign(comments, JSON.parse(saved));
-  }
+  const saved = JSON.parse(localStorage.getItem('bananaLabComments') || '{}');
+
+  Object.keys(comments).forEach((categoryName) => {
+    comments[categoryName] = Array.isArray(saved[categoryName]) ? saved[categoryName] : [];
+  });
 }
 
-// Save comments to localStorage
 function saveComments() {
   localStorage.setItem('bananaLabComments', JSON.stringify(comments));
 }
 
-// Get next user number
-function getNextUserNumber() {
-  const allComments = [...comments.artwork, ...comments.animation];
-  return allComments.length + 1;
-}
-
-// Generate username
-function generateUsername(commentIndex) {
-  return `user${commentIndex}`;
+function generateUsername(index) {
+  return `user${index}`;
 }
 
 const showcase = document.querySelector('#showcase');
@@ -81,38 +74,34 @@ function renderCategory(categoryName) {
     })
     .join('');
 
-  let html = `<div class="showcase-grid">${cards}</div>`;
-
-  // Add comment section for artwork and animation
-  if (categoryName === 'artwork' || categoryName === 'animation') {
-    html += renderCommentSection(categoryName);
-  }
+  const html = `
+    <div class="showcase-grid">${cards}</div>
+    ${renderCommentSection(categoryName)}
+  `;
 
   showcase.innerHTML = html;
+  attachCommentFormListener(categoryName);
 }
 
 function renderCommentSection(categoryName) {
   const categoryComments = comments[categoryName] || [];
 
   const commentsHTML = categoryComments
-    .map((comment, index) => {
-      const username = generateUsername(index + 1);
-      return `
-        <div class="comment">
-          <strong>${username}</strong>
-          <p>${comment}</p>
-        </div>
-      `;
-    })
+    .map((comment, index) => `
+      <div class="comment">
+        <strong>${generateUsername(index + 1)}</strong>
+        <p>${comment}</p>
+      </div>
+    `)
     .join('');
 
   return `
     <div class="comment-section">
-      <h3>Suggestions & Ideas</h3>
+      <h3>${categories[categoryName].label} Suggestions</h3>
       <form id="comment-form" data-category="${categoryName}">
-        <textarea 
-          id="comment-input" 
-          placeholder="What ${categoryName} should we create next?" 
+        <textarea
+          id="comment-input"
+          placeholder="What ${categories[categoryName].label.toLowerCase()} should we make next?"
           required
           maxlength="500"
         ></textarea>
@@ -125,35 +114,32 @@ function renderCommentSection(categoryName) {
   `;
 }
 
+function attachCommentFormListener(categoryName) {
+  const form = document.querySelector(`#comment-form[data-category="${categoryName}"]`);
+
+  if (!form) return;
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const textarea = form.querySelector('#comment-input');
+    const comment = textarea.value.trim();
+
+    if (!comment) return;
+
+    comments[categoryName].push(comment);
+    saveComments();
+    textarea.value = '';
+    renderCategory(categoryName);
+  });
+}
+
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
     buttons.forEach((btn) => btn.classList.toggle('active', btn === button));
     renderCategory(button.dataset.category);
-    
-    // Attach event listener to the comment form after rendering
-    attachCommentFormListener(button.dataset.category);
   });
 });
 
-function attachCommentFormListener(categoryName) {
-  const form = document.getElementById('comment-form');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const textarea = document.getElementById('comment-input');
-      const comment = textarea.value.trim();
-
-      if (comment) {
-        comments[categoryName].push(comment);
-        saveComments();
-        textarea.value = '';
-        renderCategory(categoryName);
-        attachCommentFormListener(categoryName);
-      }
-    });
-  }
-}
-
-// Initialize
 loadComments();
 renderCategory('games');
