@@ -3,7 +3,7 @@ const categories = {
     label: 'Games',
     items: [
       {
-        name: 'Banana Bounce',
+        name: 'Hard Platforming',
         blurb: 'A playful browser prototype built for quick arcade energy and bright feedback.',
         filled: true,
         action: 'Play demo',
