@@ -6,7 +6,7 @@ const categories = {
         name: 'Space City Adventure',
         blurb: 'A playful browser prototype built for quick arcade energy and bright feedback.',
         filled: true,
-        action: 'Play demo',
+        action: 'Play Game',
         url: 'https://a-krish.github.io/cool-stuff.com/app.html'
       }
     ]
