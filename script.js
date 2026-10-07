@@ -1,7 +1,7 @@
 // Supabase configuration
 const supabaseUrl = 'https://hxkjobrrebofvgjheyom.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4a2pvYnJyZWJvZnZnamhleW9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNjY1NjYsImV4cCI6MjEwNjk0MjU2Nn0.31LRRsoAHPX5gL7RiARSbnkTQMLDwrK3qoxLYlZLgQQ';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const categories = {
   stories: {
@@ -39,7 +39,7 @@ const comments = {
 
 async function loadComments() {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('comments')
       .select('*')
       .order('created_at', { ascending: true });
@@ -148,7 +148,7 @@ function attachCommentFormListener(categoryName) {
     const username = generateUsername();
 
     try {
-      const { error } = await supabase.from('comments').insert([
+      const { error } = await supabaseClient.from('comments').insert([
         {
           category: categoryName,
           text: comment,
