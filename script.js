@@ -1,3 +1,8 @@
+// Supabase configuration
+const supabaseUrl = 'https://hxkjobrrebofvgjheyom.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4a2pvYnJyZWJvZnZnamhleW9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNjY1NjYsImV4cCI6MjEwNjk0MjU2Nn0.31LRRsoAHPX5gL7RiARSbnkTQMLDwrK3qoxLYlZLgQQ';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 const categories = {
   stories: {
     label: 'Stories',
@@ -32,20 +37,33 @@ const comments = {
   games: []
 };
 
-function loadComments() {
-  const saved = JSON.parse(localStorage.getItem('bananaLabComments') || '{}');
+async function loadComments() {
+  try {
+    const { data, error } = await supabase
+      .from('comments')
+      .select('*')
+      .order('created_at', { ascending: true });
 
-  Object.keys(comments).forEach((categoryName) => {
-    comments[categoryName] = Array.isArray(saved[categoryName]) ? saved[categoryName] : [];
-  });
+    if (error) {
+      console.error('Failed to load comments:', error);
+      return;
+    }
+
+    Object.keys(comments).forEach((categoryName) => {
+      comments[categoryName] = (data || [])
+        .filter((item) => item.category === categoryName)
+        .map((item) => ({
+          text: item.text,
+          username: item.username
+        }));
+    });
+  } catch (err) {
+    console.error('Error loading comments:', err);
+  }
 }
 
-function saveComments() {
-  localStorage.setItem('bananaLabComments', JSON.stringify(comments));
-}
-
-function generateUsername(index) {
-  return `user${index}`;
+function generateUsername() {
+  return `user${Date.now()}`;
 }
 
 const showcase = document.querySelector('#showcase');
@@ -87,10 +105,10 @@ function renderCommentSection(categoryName) {
   const categoryComments = comments[categoryName] || [];
 
   const commentsHTML = categoryComments
-    .map((comment, index) => `
+    .map((commentData) => `
       <div class="comment">
-        <strong>${generateUsername(index + 1)}</strong>
-        <p>${comment}</p>
+        <strong>${commentData.username}</strong>
+        <p>${commentData.text}</p>
       </div>
     `)
     .join('');
@@ -119,7 +137,7 @@ function attachCommentFormListener(categoryName) {
 
   if (!form) return;
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const textarea = form.querySelector('#comment-input');
@@ -127,18 +145,37 @@ function attachCommentFormListener(categoryName) {
 
     if (!comment) return;
 
-    comments[categoryName].push(comment);
-    saveComments();
-    textarea.value = '';
-    renderCategory(categoryName);
-    
-    // Scroll to the comments list to see the newly added suggestion
-    setTimeout(() => {
-      const commentsList = document.querySelector('.comments-list');
-      if (commentsList) {
-        commentsList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const username = generateUsername();
+
+    try {
+      const { error } = await supabase.from('comments').insert([
+        {
+          category: categoryName,
+          text: comment,
+          username
+        }
+      ]);
+
+      if (error) {
+        console.error('Failed to add comment:', error);
+        alert('Failed to add comment. Please try again.');
+        return;
       }
-    }, 0);
+
+      textarea.value = '';
+      await loadComments();
+      renderCategory(categoryName);
+
+      setTimeout(() => {
+        const commentsList = document.querySelector('.comments-list');
+        if (commentsList) {
+          commentsList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 0);
+    } catch (err) {
+      console.error('Error adding comment:', err);
+      alert('Failed to add comment. Please try again.');
+    }
   });
 }
 
@@ -149,5 +186,4 @@ buttons.forEach((button) => {
   });
 });
 
-loadComments();
-renderCategory('games');
+loadComments().then(() => renderCategory('games'));
