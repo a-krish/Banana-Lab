@@ -6,15 +6,24 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 const categories = {
   stories: {
     label: 'Stories',
-    items: []
+    items: [
+    ]
   },
   artwork: {
     label: 'Artwork',
-    items: []
+    items: [
+        {name: 'Yoga Book Cat',
+        blurb: 'An image of a cat doing yoga and reading a book simultaneously.',
+        filled: true,
+        action: 'See image',
+        url: 'https://a-krish.github.io/cool-stuff.com/yoga-cat'}
+    ]
   },
   animation: {
     label: 'Animation',
-    items: []
+    items: [
+
+    ]
   },
   games: {
     label: 'Games',
