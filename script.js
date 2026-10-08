@@ -16,7 +16,7 @@ const categories = {
         blurb: 'An image of a cat doing yoga and reading a book simultaneously.',
         filled: true,
         action: 'See image',
-        url: 'https://a-krish.github.io/Banana-Lab/yoga-cat'}
+        url: 'https://a-krish.github.io/cool-stuff.com/yoga-cat'}
     ]
   },
   animation: {
@@ -33,7 +33,7 @@ const categories = {
         blurb: 'A playful browser prototype built for quick arcade energy and bright feedback.',
         filled: true,
         action: 'Play Game',
-        url: 'https://a-krish.github.io/Banana-Lab/app.html'
+        url: 'https://a-krish.github.io/cool-stuff.com/app.html'
       }
     ]
   }
