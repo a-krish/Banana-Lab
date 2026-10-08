@@ -9,6 +9,6 @@ Banana Studios creates custom stories, artwork, animations, and browser-based ga
 - Animation
 - Games
 
-## Live demo
+## Suggestion engine
 
-The home page is available in this repository and includes a game section with a playable project linked to the browser game.
+You can now comment and give suggestions for our stories,artwork,games and animations
