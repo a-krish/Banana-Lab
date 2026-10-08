@@ -1,29 +1,29 @@
 // Supabase configuration
 const supabaseUrl = 'https://hxkjobrrebofvgjheyom.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4a2pvYnJyZWJvZnZnamhleW9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNjY1NjYsImV4cCI6MjEwNjk0MjU2Nn0.31LRRsoAHPX5gL[...]
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4a2pvYnJyZWJvZnZnamhleW9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNjY1NjYsImV4cCI6MjEwNjk0MjU2Nn0.31LRRsoAHPX5gL7RiARSbnkTQMLDwrK3qoxLYlZLgQQ';
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const categories = {
   stories: {
     label: 'Stories',
-    items: [
-    ]
+    items: []
   },
   artwork: {
     label: 'Artwork',
     items: [
-        {name: 'Yoga Book Cat',
-        blurb: 'An image of a cat doing yoga and reading a book simultaneously.',
-        filled: true,
-        action: 'See image',
-        url: 'https://a-krish.github.io/cool-stuff.com/yoga-cat'}
+    {
+      name: 'Yoga Book Cat',
+      image: 'https://a-krish.github.io/cool-stuff.com/yoga-cat.png',
+      blurb: 'An image of a cat doing yoga and reading a book simultaneously.',
+      filled: true,
+      action: 'See image',
+      url: 'https://a-krish.github.io/cool-stuff.com/yoga-cat.png'
+    }
     ]
   },
   animation: {
     label: 'Animation',
-    items: [
-
-    ]
+    items: []
   },
   games: {
     label: 'Games',
@@ -85,6 +85,9 @@ function renderCategory(categoryName) {
   const cards = category.items
     .map((item) => {
       const filledClass = item.filled ? 'filled' : 'empty';
+      const imageMarkup = item.image
+        ? `<img src="${item.image}" alt="${item.name}" class="project-image" />`
+        : '';
       const buttonMarkup = item.url
         ? `<a href="${item.url}" target="_blank" rel="noopener noreferrer"><button type="button">${item.action}</button></a>`
         : item.filled
@@ -93,6 +96,7 @@ function renderCategory(categoryName) {
 
       return `
         <article class="project-card ${filledClass}">
+          ${imageMarkup}
           <h3>${item.name}</h3>
           <p>${item.blurb}</p>
           ${buttonMarkup}
