@@ -1,6 +1,6 @@
 // Supabase configuration
 const supabaseUrl = 'https://hxkjobrrebofvgjheyom.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4a2pvYnJyZWJvZnZnamhleW9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNjY1NjYsImV4cCI6MjEwNjk0MjU2Nn0.31LRRsoAHPX5gL7RiARSbnkTQMLDwrK3qoxLYlZLgQQ';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4a2pvYnJyZWJvZnZnamhleW9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNjY1NjYsImV4cCI6MjEwNjk0MjU2Nn0.31LRRsoAHPX5gL[...]
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const categories = {
@@ -16,7 +16,7 @@ const categories = {
         blurb: 'An image of a cat doing yoga and reading a book simultaneously.',
         filled: true,
         action: 'See image',
-        url: 'https://a-krish.github.io/cool-stuff.com/yoga-cat'}
+        url: 'https://a-krish.github.io/Banana-Lab/yoga-cat'}
     ]
   },
   animation: {
@@ -33,7 +33,7 @@ const categories = {
         blurb: 'A playful browser prototype built for quick arcade energy and bright feedback.',
         filled: true,
         action: 'Play Game',
-        url: 'https://a-krish.github.io/cool-stuff.com/app.html'
+        url: 'https://a-krish.github.io/Banana-Lab/app.html'
       }
     ]
   }
