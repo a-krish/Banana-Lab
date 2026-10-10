@@ -11,19 +11,28 @@ const categories = {
   artwork: {
     label: 'Artwork',
     items: [
-    {
-      name: 'Yoga Book Cat',
-      image: 'https://a-krish.github.io/cool-stuff.com/yoga-cat.png',
-      blurb: 'An image of a cat doing yoga and reading a book simultaneously.',
-      filled: true,
-      action: 'See image',
-      url: 'https://a-krish.github.io/cool-stuff.com/yoga-cat.png'
-    }
+      {
+        name: 'Yoga Book Cat',
+        image: 'https://a-krish.github.io/cool-stuff.com/yoga-cat.png',
+        blurb: 'An image of a cat doing yoga and reading a book simultaneously.',
+        filled: true,
+        action: 'See image',
+        url: 'https://a-krish.github.io/cool-stuff.com/yoga-cat.png'
+      }
     ]
   },
   animation: {
     label: 'Animation',
-    items: []
+    items: [
+      {
+        name: 'Pizza Moon Guy',
+        image: 'https://a-krish.github.io/cool-stuff.com/pizza-moon-guy.mp4',
+        blurb: 'A looping moonlit pizza character animation.',
+        filled: true,
+        action: 'Watch animation',
+        url: 'https://a-krish.github.io/cool-stuff.com/pizza-moon-guy.mp4'
+      }
+    ]
   },
   games: {
     label: 'Games',
@@ -85,8 +94,10 @@ function renderCategory(categoryName) {
   const cards = category.items
     .map((item) => {
       const filledClass = item.filled ? 'filled' : 'empty';
-      const imageMarkup = item.image
-        ? `<img src="${item.image}" alt="${item.name}" class="project-image" />`
+      const mediaMarkup = item.image
+        ? item.image.endsWith('.mp4') || item.image.endsWith('.webm') || item.image.endsWith('.mov')
+          ? `<video src="${item.image}" class="project-media" autoplay muted loop playsinline></video>`
+          : `<img src="${item.image}" alt="${item.name}" class="project-image" />`
         : '';
       const buttonMarkup = item.url
         ? `<a href="${item.url}" target="_blank" rel="noopener noreferrer"><button type="button">${item.action}</button></a>`
@@ -96,7 +107,7 @@ function renderCategory(categoryName) {
 
       return `
         <article class="project-card ${filledClass}">
-          ${imageMarkup}
+          ${mediaMarkup}
           <h3>${item.name}</h3>
           <p>${item.blurb}</p>
           ${buttonMarkup}
